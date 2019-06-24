@@ -10,7 +10,7 @@ class Form extends React.Component {
   }
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <input type="text" value={this.state.input} onChange={this.handleChange} />
         <button>追加</button>
       </form>
@@ -18,6 +18,11 @@ class Form extends React.Component {
   }
   handleChange = e => {
     this.setState({ input: e.currentTarget.value })
+  }
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.onSubmit(this.state.input);
+    this.setState({ input: '' })
   }
 }
 
