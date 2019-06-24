@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Form from  './Form';
+import Todo from './Todo';
 
 class App extends React.Component {
   render() {
@@ -20,28 +21,13 @@ class App extends React.Component {
 
         <ul>
           <li>
-            <label>
-              <input type="checkbox" />
-              朝ごはんを食べる
-            </label>
-            <button>編集</button>
-            <button>削除</button>
+            <Todo id={0} text="朝ごはんを食べる" />
           </li>
           <li>
-            <label>
-              <input type="checkbox" />
-              筋トレをする
-            </label>
-            <button>編集</button>
-            <button>削除</button>
+            <Todo id={0} text="筋トレをする" />
           </li>
           <li>
-            <label>
-              <input type="checkbox" />
-              勉強をする
-            </label>
-            <button>編集</button>
-            <button>削除</button>
+            <Todo id={0} text="勉強をする" />
           </li>
         </ul>
         <button>完了済みを全て削除</button>
