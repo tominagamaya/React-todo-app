@@ -35,7 +35,7 @@ class App extends React.Component {
             </li>
           ))}
         </ul>
-        <button>完了済みを全て削除</button>
+        <button onClick={this.handleClickDeleteCompleted}>完了済みを全て削除</button>
       </div>
     );
   }
@@ -68,6 +68,10 @@ class App extends React.Component {
       return todo
     })
     this.setState({ todos: newTodos})
+  }
+  handleClickDeleteCompleted = () => {
+    const newTodos = this.state.todos.filter(({ completed }) => !completed)
+    this.setState({ todos: newTodos })
   }
 }
 
