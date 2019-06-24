@@ -3,6 +3,7 @@ import React from "react";
 import Form from "./Form";
 import Todo from "./Todo";
 import CheckAll from "./CheckAll";
+import Filter from "./Filter";
 
 let currentId = 0;
 
@@ -11,11 +12,24 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      filter: "all",
       todos: []
     };
   }
   render() {
-    const { todos } = this.state;
+    const { todos, filter } = this.state;
+    const filteredTodos = todos.filter(({ completed }) => {
+      switch (filter) {
+        case "all":
+          return true;
+        case "uncompleted":
+          return !completed;
+        case "completed":
+          return completed;
+        default:
+          return true;
+      }
+    });
     return (
       <div>
         <Form onSubmit={this.handleSubmit} />
@@ -25,14 +39,9 @@ class App extends React.Component {
           }
           onChange={this.handleChangeAllCompleted}
         />
-        <select>
-          <option>全て</option>
-          <option>未完了</option>
-          <option>完了済み</option>
-        </select>
-
+        <Filter filter={filter} onChange={this.handleChangeFilter} />
         <ul>
-          {this.state.todos.map(({ id, text, completed }) => (
+          {filteredTodos.map(({ id, text, completed }) => (
             <li key={id}>
               <Todo
                 id={id}
@@ -66,6 +75,9 @@ class App extends React.Component {
       completed
     }));
     this.setState({ todos: newTodos });
+  };
+  handleChangeFilter = filter => {
+    this.setState({ filter });
   };
   handleChangeCompleted = (id, completed) => {
     const newTodos = this.state.todos.map(todo => {
